@@ -7,7 +7,7 @@ CACTUS = [(LARGE_CACTUS, 300),
 
 
 class Cactus(Obstacle):
-    def __init__(self, image):
+    def __init__(self):
         image, cactus_pos = CACTUS[random.randint(0,1)]
         self.type = random.randint(0,2)
         super().__init__(image, self.type)

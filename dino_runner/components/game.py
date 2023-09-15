@@ -36,8 +36,8 @@ class Game:
     def run(self):
         # Game loop: events - update - draw
         self.playing = True
+        self.obstacle_manager.reset_obstacles()
         while self.playing:
-            self.obstacle_manager.reset_obstacles()
             self.events()   
             self.update()
             self.draw()     
@@ -51,7 +51,7 @@ class Game:
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.obstacle_manager.update(self)
-        self.update.score()
+        self.update_score()
 
     def update_score(self):
         self.score += 1
@@ -93,7 +93,7 @@ class Game:
 
         if self.death_count == 0:
             font = pygame.font.Font(FONT_STYLE, 22)
-            text = font.render("Press any kay to start", True, (0, 0, 0 ))
+            text = font.render("Press any key to start", True, (0, 0, 0 ))
             text_rect = text.get_rect()
             text_rect.center = (half_screen_Width, half_screen_height)
             self.screen.blit(text, text_rect)
@@ -112,4 +112,4 @@ class Game:
                 self.playing = False
                 self.running = False
             elif event.type == pygame.KEYDOWN:
-                self.run  
+                self.run()  

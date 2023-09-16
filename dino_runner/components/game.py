@@ -84,27 +84,34 @@ class Game:
         text_rect = text.get_rect()
         text_rect.center = (1000, 50)
         self.screen.blit(text, text_rect)
+    
+    def draw_text(self, text, x, y, font_size, color):
+        font = pygame.font.Font(FONT_STYLE, font_size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.center = (x, y)
+        self.screen.blit(text_surface, text_rect)
 
 
     def show_menu(self):
-        self.screen.fill((255,255,255))
-        half_screen_height =  SCREEN_HEIGHT // 2
-        half_screen_Width = SCREEN_WIDTH // 2 
+        self.screen.fill((255, 255, 255))
+        half_screen_height = SCREEN_HEIGHT // 2
+        half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count == 0:
             font = pygame.font.Font(FONT_STYLE, 22)
-            text = font.render("Press any key to start", True, (0, 0, 0 ))
+            text = font.render("Press any key to start", True, (0, 0, 0))
             text_rect = text.get_rect()
-            text_rect.center = (half_screen_Width, half_screen_height)
+            text_rect.center = (half_screen_width, half_screen_height - 30)
             self.screen.blit(text, text_rect)
-
         else:
-            self.screen.blit(ICON, (half_screen_Width - 20, half_screen_height - 40))
+            self.draw_text("Press any key to restart", half_screen_width, half_screen_height - 30, 22, (0, 0, 0))
 
+        self.draw_text(f"Death Count: {self.death_count}", half_screen_width, half_screen_height + 10, 18, (0, 0, 0))
+        self.draw_text(f"Score: {self.score}", half_screen_width, half_screen_height + 40, 18, (0, 0, 0))
 
         pygame.display.update()
-        self.handle_events_on_menu() 
-
+        self.handle_events_on_menu()
 
     def handle_events_on_menu(self):
         for event in pygame.event.get():
@@ -112,4 +119,9 @@ class Game:
                 self.playing = False
                 self.running = False
             elif event.type == pygame.KEYDOWN:
-                self.run()  
+                self.reset_game()
+
+    def reset_game(self):
+     self.score = 0
+     self.game_speed = 20
+     self.run()  

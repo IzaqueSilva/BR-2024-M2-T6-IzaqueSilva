@@ -12,7 +12,7 @@ class Cloud(Sprite):
         self.width = self.image.get_width()
 
 
-    def update(self, game_speed = 15):
+    def update(self, game_speed):
         self.x -= game_speed
         if self.x < -self.width:
             self.x = SCREEN_WIDTH 

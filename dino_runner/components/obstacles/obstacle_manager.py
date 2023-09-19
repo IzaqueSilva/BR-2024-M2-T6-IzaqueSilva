@@ -1,3 +1,4 @@
+from dino_runner.utils.constants import SHIELD_TYPE, HAMMER_TYPE, SCREEN_WIDTH, SCREEN_HEIGHT
 import pygame
 import random
 
@@ -22,15 +23,29 @@ class ObstacleManager:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
                 if not game.player.has_power_up:
+                    # responsável por fazer morrer
                     pygame.time.delay(500)
                     game.playing = False
                     game.death_count += 1
                     break
                 else:
-                    self.obstacles.remove(obstacle)
+                    # aqui ele tem power up
+                    if game.player.type == SHIELD_TYPE:
+                        obstacle.is_dead = True
+                        pass
+                    elif game.player.type == HAMMER_TYPE:
+                        self.obstacles.remove(obstacle)
 
-    def draw(self, screen):
+    def draw(self, screen, game_speed):
         for obstacle in self.obstacles:
+            if obstacle.is_dead:
+                obstacle.rect.x += game_speed + 50
+                obstacle.rect.y -= 50
+            
+            if obstacle.rect.x > SCREEN_WIDTH or obstacle.rect.y < 0:
+                self.obstacles.remove(obstacle)
+                continue
+                
             obstacle.draw(screen)
 
     def reset_obstacles(self):

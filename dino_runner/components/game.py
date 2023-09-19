@@ -5,7 +5,7 @@ from dino_runner.utils.text_utils import draw_message_component
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
-
+from dino_runner.components.cloud import Cloud
 
 class Game:
     def __init__(self):
@@ -24,6 +24,7 @@ class Game:
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
+        self.cloud = Cloud()
 
     def execute(self):
         self.running = True
@@ -56,6 +57,7 @@ class Game:
         self.obstacle_manager.update(self)
         self.update_score()
         self.power_up_manager.update(self)
+        self.cloud.update(self.game_speed)
 
     def update_score(self):
         self.score += 1
@@ -64,14 +66,14 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255)) # "#FFFFFF"
+        self.screen.fill((255, 255, 255)) 
         self.draw_background()
         self.player.draw(self.screen)
-        self.obstacle_manager.draw(self.screen)
+        self.obstacle_manager.draw(self.screen, self.game_speed)
         self.draw_score()
         self.draw_power_up_time()
         self.power_up_manager.draw(self.screen)
-        #pygame.display.update()
+        self.cloud.draw(self.screen)
         pygame.display.flip()
 
     def draw_background(self):

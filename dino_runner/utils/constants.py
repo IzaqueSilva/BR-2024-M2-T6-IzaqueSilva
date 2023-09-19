@@ -7,6 +7,7 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1100
 FPS = 30
 IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
+SND_DIR = os.path.join(os.path.dirname(__file__), "..", r"assets/Sounds")
 
 # Assets Constants
 ICON = pygame.image.load(os.path.join(IMG_DIR, "DinoWallpaper.png"))
@@ -72,3 +73,20 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
+
+
+
+
+#sons
+
+pygame.mixer.init()
+pygame.mixer.music.load(os.path.join(SND_DIR, 'word_theme.mp3'))
+
+AUDIOS = {
+    'critical' : pygame.mixer.Sound(os.path.join(SND_DIR, 'critical.wav')),
+    'death' : pygame.mixer.Sound(os.path.join(SND_DIR, 'death.wav')),
+    'jump' : pygame.mixer.Sound(os.path.join(SND_DIR, 'jump.wav')),
+    'landing' : pygame.mixer.Sound(os.path.join(SND_DIR, 'landing.wav')),
+    'power_up' : pygame.mixer.Sound(os.path.join(SND_DIR, 'power_up.wav')),
+    'shield' : pygame.mixer.Sound(os.path.join(SND_DIR, 'shield.wav')),
+}

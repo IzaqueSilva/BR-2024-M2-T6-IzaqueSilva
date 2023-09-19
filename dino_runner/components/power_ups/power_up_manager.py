@@ -3,6 +3,7 @@ import pygame
 
 from dino_runner.components.power_ups.shield import Shield
 from dino_runner.components.power_ups.hammer import Hammer
+from dino_runner.utils.constants import AUDIOS
 
 
 class PowerUpManager:
@@ -21,6 +22,7 @@ class PowerUpManager:
         for power_up in self.power_ups:
             power_up.update(game.game_speed, self.power_ups)
             if game.player.dino_rect.colliderect(power_up.rect):
+                AUDIOS['power_up'].play()
                 power_up.start_time = pygame.time.get_ticks()
                 game.player.has_power_up = True
                 game.player.type = power_up.type

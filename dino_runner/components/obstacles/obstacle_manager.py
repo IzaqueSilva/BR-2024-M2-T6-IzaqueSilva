@@ -1,4 +1,4 @@
-from dino_runner.utils.constants import SHIELD_TYPE, HAMMER_TYPE, SCREEN_WIDTH, SCREEN_HEIGHT
+from dino_runner.utils.constants import SHIELD_TYPE, HAMMER_TYPE, SCREEN_WIDTH, SCREEN_HEIGHT, AUDIOS
 import pygame
 import random
 
@@ -24,12 +24,16 @@ class ObstacleManager:
             if game.player.dino_rect.colliderect(obstacle.rect):
                 if not game.player.has_power_up:
                     # responsável por fazer morrer
+                    AUDIOS['death'].play()
+                    pygame.mixer.music.stop()
                     pygame.time.delay(500)
                     game.playing = False
                     game.death_count += 1
                     break
                 else:
                     # aqui ele tem power up
+                    AUDIOS['critical'].play()
+
                     if game.player.type == SHIELD_TYPE:
                         obstacle.is_dead = True
                         pass

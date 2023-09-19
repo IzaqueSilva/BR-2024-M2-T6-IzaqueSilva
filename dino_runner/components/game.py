@@ -30,12 +30,14 @@ class Game:
         self.running = True
         while self.running:
             if not self.playing:
+                pygame.mixer.music.stop()
                 self.show_menu()
         pygame.display.quit()
         pygame.quit()
 
     def run(self):
         # Game loop: events - update - draw
+        pygame.mixer.music.play()
         self.playing = True
         self.game_speed = 20
         self.score = 0
